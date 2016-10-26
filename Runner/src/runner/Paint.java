@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import runner.player.Player;
+
 @SuppressWarnings("serial")
 public class Paint extends JPanel
 {
@@ -19,8 +21,10 @@ public class Paint extends JPanel
 		g.fillRect(0, 0, 600, 20);
 		g.fillRect(0, 455, 600, 20);
 
-		g.setColor(Color.YELLOW);
+		g.setColor(Color.RED);
+		g.fillRect(100, Player.getPlayer(), 30, 30);
 
-		g.fillRect(Runner.xPos, 415, 30, 40);
+		g.setColor(Color.YELLOW);
+		g.fillRect(Runner.xPos, 425, 60, 30);
 	}
 }

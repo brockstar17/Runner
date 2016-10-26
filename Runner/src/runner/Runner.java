@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import runner.player.Player;
+
 @SuppressWarnings("serial")
 public class Runner extends JFrame implements ActionListener, KeyListener
 {
@@ -51,23 +53,37 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			oVel = 2;
 			break;
 		case KeyEvent.VK_W:
-			System.out.println("Jump");
+			Player.jump();
 			break;
 		case KeyEvent.VK_D:
 			oVel = 4;
 			break;
 		case KeyEvent.VK_S:
-			System.out.println("Duck");
+
 			break;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_A)
+
+		int key = e.getKeyCode();
+		switch(key)
+		{
+		case KeyEvent.VK_A:
 			oVel = 3;
-		if(e.getKeyCode() == KeyEvent.VK_D)
+			break;
+		case KeyEvent.VK_W:
+
+			Player.duck(1);
+			break;
+		case KeyEvent.VK_D:
 			oVel = 3;
+			break;
+		case KeyEvent.VK_S:
+
+			break;
+		}
 	}
 
 	@Override
@@ -77,6 +93,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		xPos -= oVel;
+		Player.decPos(Player.getDVel());
 		repaint();
 	}
 

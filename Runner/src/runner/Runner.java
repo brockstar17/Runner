@@ -51,13 +51,13 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		switch(key)
 		{
 		case KeyEvent.VK_A:
-			oVel = 3;
+			oVel = 5;
 			break;
 		case KeyEvent.VK_W:
 			Player.jump();
 			break;
 		case KeyEvent.VK_D:
-			oVel = 5;
+			oVel = 7;
 			break;
 		case KeyEvent.VK_S:
 			isDucking = true;
@@ -75,14 +75,14 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		{
 		case KeyEvent.VK_A:
 			isNewGame = false;
-			oVel = 4;
+			oVel = 6;
 			break;
 		case KeyEvent.VK_W:
 
 			Player.fall(1);
 			break;
 		case KeyEvent.VK_D:
-			oVel = 4;
+			oVel = 6;
 			isNewGame = false;
 			break;
 		case KeyEvent.VK_S:

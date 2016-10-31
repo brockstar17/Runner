@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import runner.obstacles.CreateObstacles;
+import runner.obstacles.Overhang;
 import runner.player.Player;
 
 @SuppressWarnings("serial")
@@ -13,8 +13,6 @@ public class Paint extends JPanel
 {
 	public static boolean isOPassed = true;
 	public static boolean isFirstPassed = false;
-
-	private int xsize;
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -31,20 +29,15 @@ public class Paint extends JPanel
 
 		g.setColor(Color.YELLOW);
 
-		if(isFirstPassed)
-		{
-			g.fillRect(Runner.xPos, 425, xsize, 30);
-		}
-
-		else
-			g.fillRect(Runner.xPos, 425, 60, 30);
+		// Triangle.paintT(g);
+		// Square.paintS(g);
+		Overhang.paintO(g);
 
 		if(Runner.xPos <= 0)
 		{
 			isOPassed = true;
 			isFirstPassed = true;
 			Runner.xPos = 600;
-			xsize = CreateObstacles.pickShape();
 		}
 
 		if(isOPassed)

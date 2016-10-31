@@ -16,6 +16,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 {
 	public static int oVel = 0;
 	public static int xPos = 600;
+	public static int oldXpos = 100;
 
 	public static boolean isNewGame = true;
 
@@ -50,13 +51,13 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		switch(key)
 		{
 		case KeyEvent.VK_A:
-			oVel = 2;
+			oVel = 3;
 			break;
 		case KeyEvent.VK_W:
 			Player.jump();
 			break;
 		case KeyEvent.VK_D:
-			oVel = 4;
+			oVel = 5;
 			break;
 		case KeyEvent.VK_S:
 
@@ -71,28 +72,45 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		switch(key)
 		{
 		case KeyEvent.VK_A:
-			oVel = 3;
+			isNewGame = false;
+			oVel = 4;
 			break;
 		case KeyEvent.VK_W:
 
 			Player.duck(1);
 			break;
 		case KeyEvent.VK_D:
-			oVel = 3;
+			oVel = 4;
+			isNewGame = false;
 			break;
 		case KeyEvent.VK_S:
 
 			break;
+		case KeyEvent.VK_R:
+			isNewGame = true;
+			Paint.isFirstPassed = false;
 		}
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 
+	public static boolean decOldX = false;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		xPos -= oVel;
+		if(decOldX)
+		{
+			oldXpos -= oVel;
+			if(oldXpos <= 0)
+			{
+				decOldX = false;
+				oldXpos = 100;
+			}
+		}
 		Player.decPos(Player.getDVel());
 		repaint();
 	}

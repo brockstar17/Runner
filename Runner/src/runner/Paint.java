@@ -5,11 +5,16 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import runner.obstacles.CreateObstacles;
 import runner.player.Player;
 
 @SuppressWarnings("serial")
 public class Paint extends JPanel
 {
+	public static boolean isOPassed = true;
+	public static boolean isFirstPassed = false;
+
+	private int xsize;
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -25,6 +30,29 @@ public class Paint extends JPanel
 		g.fillRect(100, Player.getPlayer(), 30, 30);
 
 		g.setColor(Color.YELLOW);
-		g.fillRect(Runner.xPos, 425, 60, 30);
+
+		if(isFirstPassed)
+		{
+			g.fillRect(Runner.xPos, 425, xsize, 30);
+		}
+
+		else
+			g.fillRect(Runner.xPos, 425, 60, 30);
+
+		if(Runner.xPos <= 0)
+		{
+			isOPassed = true;
+			isFirstPassed = true;
+			Runner.xPos = 600;
+			xsize = CreateObstacles.pickShape();
+		}
+
+		if(isOPassed)
+		{
+
+			isOPassed = false;
+		}
+
 	}
+
 }

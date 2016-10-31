@@ -60,10 +60,12 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			oVel = 5;
 			break;
 		case KeyEvent.VK_S:
-
+			isDucking = true;
 			break;
 		}
 	}
+
+	private static boolean isDucking = false;
 
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -77,20 +79,24 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			break;
 		case KeyEvent.VK_W:
 
-			Player.duck(1);
+			Player.fall(1);
 			break;
 		case KeyEvent.VK_D:
 			oVel = 4;
 			isNewGame = false;
 			break;
 		case KeyEvent.VK_S:
-
+			isDucking = false;
 			break;
 		case KeyEvent.VK_R:
 			isNewGame = true;
 			Paint.isFirstPassed = false;
 		}
 
+	}
+
+	public static boolean getDucking() {
+		return isDucking;
 	}
 
 	@Override

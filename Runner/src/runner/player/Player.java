@@ -1,5 +1,7 @@
 package runner.player;
 
+import runner.Runner;
+
 /*
  * These methods will track the changes to the player's
  * block, 
@@ -18,7 +20,7 @@ public class Player
 	}
 
 	// changes the down vel to vel parameter
-	public static void duck(int vel) {
+	public static void fall(int vel) {
 		dVel = vel;
 	}
 
@@ -36,7 +38,10 @@ public class Player
 
 	// return the y pos of the player block
 	public static int getPlayer() {
-		return pYPos;
+		if(Runner.getDucking())
+			return pYPos + 10;
+		else
+			return pYPos;
 	}
 
 	// returns the downward velocity (falling speed)
@@ -47,5 +52,12 @@ public class Player
 	// set the stop pos
 	public static void setStopD(int Y) {
 		stopD = Y;
+	}
+
+	public static int duck() {
+		if(Runner.getDucking())
+			return 20;
+		else
+			return 30;
 	}
 }

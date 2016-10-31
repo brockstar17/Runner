@@ -25,7 +25,7 @@ public class Paint extends JPanel
 		g.fillRect(0, 455, 600, 20);
 
 		g.setColor(Color.RED);
-		g.fillRect(100, Player.getPlayer(), 30, 30);
+		g.fillRect(100, Player.getPlayer(), 30, Player.duck());
 
 		g.setColor(Color.YELLOW);
 

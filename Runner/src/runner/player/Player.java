@@ -44,16 +44,13 @@ public class Player
 
 		else if(pYPos >= stopD)
 		{
-			dVel = 0;
 			pYPos = stopD;
 			accl = 0.02f;
 			canJump = true;
 		}
 		else
 		{
-
 			pYPos = stopD;
-
 		}
 
 	}

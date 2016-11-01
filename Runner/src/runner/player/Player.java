@@ -20,7 +20,7 @@ public class Player
 	public static void jump() {
 		if(canJump)
 		{
-			pYPos -= 60;
+			pYPos -= 55;
 			canJump = false;
 		}
 

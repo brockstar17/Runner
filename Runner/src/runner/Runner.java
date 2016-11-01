@@ -45,19 +45,21 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	}
 
+	// when keys are pressed
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		switch(key)
 		{
 		case KeyEvent.VK_A:
-			oVel = 5;
+			oVel = 4;
 			break;
 		case KeyEvent.VK_W:
 			Player.jump();
+			Player.isJump = true;
 			break;
 		case KeyEvent.VK_D:
-			oVel = 7;
+			oVel = 8;
 			break;
 		case KeyEvent.VK_S:
 			isDucking = true;
@@ -67,6 +69,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	private static boolean isDucking = false;
 
+	// when keys are released
 	@Override
 	public void keyReleased(KeyEvent e) {
 
@@ -117,7 +120,8 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 				oldXpos = 100;
 			}
 		}
-		Player.decPos(Player.getDVel());
+		if(Player.isJump)
+			Player.decPos(Player.getDVel());
 		repaint();
 	}
 

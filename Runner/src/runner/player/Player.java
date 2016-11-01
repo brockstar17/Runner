@@ -16,6 +16,7 @@ public class Player
 	private static int dVel = 0; // downward velocity
 
 	private static boolean canJump = true; // only allow one jump (for now)
+	public static boolean isJump = false;
 
 	public static void jump() {
 		if(canJump)
@@ -79,4 +80,5 @@ public class Player
 		else
 			return 30;
 	}
+
 }

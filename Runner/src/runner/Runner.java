@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import runner.player.Player;
+import runner.player.RotationHandler;
 
 @SuppressWarnings("serial")
 public class Runner extends JFrame implements ActionListener, KeyListener
@@ -52,17 +53,20 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		switch(key)
 		{
 		case KeyEvent.VK_A:
-			oVel = 4;
+			oVel = 5;
 			break;
 		case KeyEvent.VK_W:
 			Player.jump();
 			Player.isJump = true;
 			break;
 		case KeyEvent.VK_D:
-			oVel = 8;
+			oVel = 10;
 			break;
 		case KeyEvent.VK_S:
 			isDucking = true;
+			break;
+		case KeyEvent.VK_C:
+
 			break;
 		}
 	}
@@ -78,14 +82,14 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		{
 		case KeyEvent.VK_A:
 			isNewGame = false;
-			oVel = 6;
+			oVel = 8;
 			break;
 		case KeyEvent.VK_W:
 
 			Player.fall(1);
 			break;
 		case KeyEvent.VK_D:
-			oVel = 6;
+			oVel = 8;
 			isNewGame = false;
 			break;
 		case KeyEvent.VK_S:
@@ -108,6 +112,8 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	public static boolean decOldX = false;
 
+	public static int angleRot = 180;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		xPos -= oVel;
@@ -122,6 +128,17 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		}
 		if(Player.isJump)
 			Player.decPos(Player.getDVel());
+
+		if(angleRot < 270 && Player.isJump)
+		{
+			angleRot += 10;
+			RotationHandler.rotateCorners();
+		}
+		if(angleRot == 270 && !Player.isJump)
+		{
+			angleRot = 180;
+		}
+
 		repaint();
 	}
 

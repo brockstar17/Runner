@@ -10,6 +10,7 @@ import runner.obstacles.Overhang;
 import runner.obstacles.Square;
 import runner.obstacles.Triangle;
 import runner.player.Player;
+import runner.player.RotationHandler;
 
 @SuppressWarnings("serial")
 public class Paint extends JPanel
@@ -31,7 +32,10 @@ public class Paint extends JPanel
 		g.fillRect(0, 455, 600, 20);
 
 		g.setColor(Color.RED);
-		g.fillRect(100, Player.getPlayer(), 30, Player.duck());
+		if(Player.isJump)
+			RotationHandler.drawRotPlayer(g);
+		else
+			g.fillRect(100, Player.getPlayer(), 30, Player.duck());
 
 		g.setColor(Color.YELLOW);
 

@@ -27,6 +27,10 @@ public class Player
 
 	}
 
+	/*
+	 * Point p = new Point(115, 440); CalcJumpRotation.calcRot(p, 45, 100, 425);
+	 */
+
 	// changes the down vel to vel parameter
 	public static void fall(int vel) {
 		dVel = vel;
@@ -48,9 +52,11 @@ public class Player
 			pYPos = stopD;
 			accl = 0.02f;
 			canJump = true;
+			isJump = false;
 		}
 		else
 		{
+
 			pYPos = stopD;
 		}
 

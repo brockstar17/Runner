@@ -7,7 +7,6 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 import runner.obstacles.Overhang;
-import runner.obstacles.Square;
 import runner.obstacles.Triangle;
 import runner.player.Player;
 import runner.player.RotationHandler;
@@ -16,10 +15,9 @@ import runner.player.RotationHandler;
 public class Paint extends JPanel
 {
 	public static boolean isOPassed = true;
-	public static boolean isFirstPassed = false;
 
 	private Random rand = new Random();
-	private int num = rand.nextInt(2 + 1);
+	private int num = rand.nextInt(1 + 1);
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -32,35 +30,33 @@ public class Paint extends JPanel
 		g.fillRect(0, 455, 600, 20);
 
 		g.setColor(Color.RED);
-		if(Player.isJump)
+		if (Player.isJump)
 			RotationHandler.drawRotPlayer(g);
 		else
 			g.fillRect(100, Player.getPlayer(), 30, Player.duck());
 
 		g.setColor(Color.YELLOW);
 
-		switch(num)
+		switch (num)
 		{
 		case 0:
+			Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num, 435);
 			Triangle.paintT(g);
 			break;
 		case 1:
-			Square.paintS(g);
-			break;
-		case 2:
+			Runner.gameOver = GameOver.isGameOver(Runner.xPos, num, 415);
 			Overhang.paintO(g);
 			break;
 		}
 
-		if(Runner.xPos <= 0)
+		if (Runner.xPos <= 0)
 		{
 			isOPassed = true;
-			isFirstPassed = true;
 			Runner.xPos = 600;
-			num = rand.nextInt(2 + 1);
+			num = rand.nextInt(1 + 1);
 		}
 
-		if(isOPassed)
+		if (isOPassed)
 		{
 
 			isOPassed = false;

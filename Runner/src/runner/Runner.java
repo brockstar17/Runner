@@ -17,9 +17,9 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 {
 	public static int oVel = 0;
 	public static int xPos = 600;
-	public static int oldXpos = 100;
 
 	public static boolean isNewGame = true;
+	public static boolean gameOver = false;
 
 	public Runner()
 	{
@@ -50,7 +50,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		switch(key)
+		switch (key)
 		{
 		case KeyEvent.VK_A:
 			oVel = 5;
@@ -68,6 +68,13 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		case KeyEvent.VK_C:
 
 			break;
+
+		case KeyEvent.VK_R:
+			isNewGame = true;
+			xPos = 600;
+			oVel = 0;
+			gameOver = false;
+			break;
 		}
 	}
 
@@ -78,7 +85,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	public void keyReleased(KeyEvent e) {
 
 		int key = e.getKeyCode();
-		switch(key)
+		switch (key)
 		{
 		case KeyEvent.VK_A:
 			isNewGame = false;
@@ -95,9 +102,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		case KeyEvent.VK_S:
 			isDucking = false;
 			break;
-		case KeyEvent.VK_R:
-			isNewGame = true;
-			Paint.isFirstPassed = false;
+
 		}
 
 	}
@@ -110,36 +115,29 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	public void keyTyped(KeyEvent e) {
 	}
 
-	public static boolean decOldX = false;
-
 	public static int angleRot = 180;
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		xPos -= oVel;
-		if(decOldX)
+		if (!gameOver)
 		{
-			oldXpos -= oVel;
-			if(oldXpos <= 0)
+			xPos -= oVel;
+
+			if (Player.isJump)
+				Player.decPos(Player.getDVel());
+
+			if (angleRot < 270 && Player.isJump)
 			{
-				decOldX = false;
-				oldXpos = 100;
+				angleRot += 10;
+				RotationHandler.rotateCorners();
 			}
-		}
-		if(Player.isJump)
-			Player.decPos(Player.getDVel());
+			if (angleRot == 270 && !Player.isJump)
+			{
+				angleRot = 180;
+			}
 
-		if(angleRot < 270 && Player.isJump)
-		{
-			angleRot += 10;
-			RotationHandler.rotateCorners();
+			repaint();
 		}
-		if(angleRot == 270 && !Player.isJump)
-		{
-			angleRot = 180;
-		}
-
-		repaint();
 	}
 
 }

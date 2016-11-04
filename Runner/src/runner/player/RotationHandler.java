@@ -15,9 +15,9 @@ public class RotationHandler
 
 	public static void rotateCorners() {
 
-		for(int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
-			switch(i)
+			switch (i)
 			{
 			case 0: // upper left
 				CalcJumpRotation.calcRot(p, Runner.angleRot, 100, 425 + 40);
@@ -49,6 +49,7 @@ public class RotationHandler
 	public static void drawRotPlayer(Graphics g) {
 		Polygon p = new Polygon(xcoords, ycoords, 4);
 		g.fillPolygon(p);
+
 	}
 
 }

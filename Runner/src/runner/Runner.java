@@ -73,6 +73,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			isNewGame = true;
 			xPos = 600;
 			oVel = 0;
+			Paint.passed = 0;
 			gameOver = false;
 			break;
 		}
@@ -136,8 +137,9 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 				angleRot = 180;
 			}
 
-			repaint();
 		}
+
+		repaint();
 	}
 
 }

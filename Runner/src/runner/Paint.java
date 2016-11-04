@@ -15,6 +15,7 @@ import runner.player.RotationHandler;
 public class Paint extends JPanel
 {
 	public static boolean isOPassed = true;
+	public static int passed = -1;
 
 	private Random rand = new Random();
 	private int num = rand.nextInt(1 + 1);
@@ -25,41 +26,57 @@ public class Paint extends JPanel
 		super.paintComponent(g);
 		setBackground(Color.BLACK);
 
-		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, 600, 20);
-		g.fillRect(0, 455, 600, 20);
+		if (Runner.gameOver)
+		{
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, 600, 600);
+			g.setColor(Color.MAGENTA);
 
-		g.setColor(Color.RED);
-		if (Player.isJump)
-			RotationHandler.drawRotPlayer(g);
+			g.drawString("Game Over", this.getWidth() / 2 - 20, this.getHeight() / 2);
+			g.drawString("You cleared " + passed + " obstacles", this.getWidth() / 2 - 55, this.getHeight() / 2 + 15);
+			g.drawString("Press R to play again", this.getWidth() / 2 - 45, this.getHeight() / 2 + 30);
+		}
 		else
-			g.fillRect(100, Player.getPlayer(), 30, Player.duck());
-
-		g.setColor(Color.YELLOW);
-
-		switch (num)
 		{
-		case 0:
-			Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num, 435);
-			Triangle.paintT(g);
-			break;
-		case 1:
-			Runner.gameOver = GameOver.isGameOver(Runner.xPos, num, 415);
-			Overhang.paintO(g);
-			break;
-		}
+			g.setColor(Color.GRAY);
+			g.fillRect(0, 0, 600, 20);
+			g.fillRect(0, 455, 600, 20);
 
-		if (Runner.xPos <= 0)
-		{
-			isOPassed = true;
-			Runner.xPos = 600;
-			num = rand.nextInt(1 + 1);
-		}
+			g.setColor(Color.RED);
+			if (Player.isJump)
+				RotationHandler.drawRotPlayer(g);
+			else
+				g.fillRect(100, Player.getPlayer(), 30, Player.duck());
 
-		if (isOPassed)
-		{
+			g.setColor(Color.YELLOW);
 
-			isOPassed = false;
+			switch (num)
+			{
+			case 0:
+				Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num, 435);
+				Triangle.paintT(g);
+				break;
+			case 1:
+				Runner.gameOver = GameOver.isGameOver(Runner.xPos, num, 415);
+				Overhang.paintO(g);
+				break;
+			}
+
+			if (Runner.xPos <= 0)
+			{
+				isOPassed = true;
+				Runner.xPos = 600;
+				num = rand.nextInt(1 + 1);
+			}
+
+			if (isOPassed)
+			{
+				passed++;
+				isOPassed = false;
+			}
+
+			g.setColor(Color.MAGENTA);
+			g.drawString("Obstacles passed: " + passed, 0, 40);
 		}
 
 	}

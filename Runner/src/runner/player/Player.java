@@ -10,6 +10,7 @@ public class Player
 {
 
 	private static int pYPos = 425; // starting y pos
+	private static int yadd = 0;
 	// where to stop dec
 	public static int stopD = 425; // to start
 
@@ -19,7 +20,7 @@ public class Player
 	public static boolean isJump = false;
 
 	public static void jump() {
-		if(canJump)
+		if (canJump)
 		{
 			pYPos -= 55;
 			canJump = false;
@@ -41,22 +42,24 @@ public class Player
 	// used for decreasing the player block position
 	public static void decPos(int decrement) {
 
-		if((pYPos + (int) decrement + accl) < stopD)
+		if ((pYPos + (int) decrement + accl) < stopD)
 		{
 			pYPos += (int) decrement + accl;
+			yadd = pYPos - 425;
 			accl += accl;
 		}
 
-		else if(pYPos >= stopD)
+		else if (pYPos >= stopD)
 		{
 			pYPos = stopD;
+			yadd = 0;
 			accl = 0.02f;
 			canJump = true;
 			isJump = false;
 		}
 		else
 		{
-
+			yadd = 0;
 			pYPos = stopD;
 		}
 
@@ -64,7 +67,7 @@ public class Player
 
 	// return the y pos of the player block
 	public static int getPlayer() {
-		if(Runner.getDucking())
+		if (Runner.getDucking())
 			return pYPos + 10;
 		else
 			return pYPos;
@@ -81,10 +84,14 @@ public class Player
 	}
 
 	public static int duck() {
-		if(Runner.getDucking())
+		if (Runner.getDucking())
 			return 20;
 		else
 			return 30;
+	}
+
+	public static int getYadd() {
+		return yadd;
 	}
 
 }

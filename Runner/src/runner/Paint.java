@@ -19,6 +19,7 @@ public class Paint extends JPanel
 
 	private Random rand = new Random();
 	private int num = rand.nextInt(1 + 1);
+	private int numt = rand.nextInt(3) + 1;
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -53,8 +54,9 @@ public class Paint extends JPanel
 			switch (num)
 			{
 			case 0:
+
 				Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num, 435);
-				Triangle.paintT(g);
+				Triangle.paintT(g, numt);
 				break;
 			case 1:
 				Runner.gameOver = GameOver.isGameOver(Runner.xPos, num, 415);
@@ -62,11 +64,41 @@ public class Paint extends JPanel
 				break;
 			}
 
-			if (Runner.xPos <= 0)
+			if (Runner.xPos <= 0 && num != 0)
 			{
 				isOPassed = true;
 				Runner.xPos = 600;
 				num = rand.nextInt(1 + 1);
+				if (num != 0)
+					numt = rand.nextInt(3) + 1;
+			}
+
+			if (num == 0)
+			{
+				if (numt == 3 && Runner.xPos + 320 <= 0)
+				{
+					isOPassed = true;
+					Runner.xPos = 600;
+					num = rand.nextInt(1 + 1);
+					if (num != 0)
+						numt = rand.nextInt(3) + 1;
+				}
+				else if (numt == 2 && Runner.xPos + 100 <= 0)
+				{
+					isOPassed = true;
+					Runner.xPos = 600;
+					num = rand.nextInt(1 + 1);
+					if (num != 0)
+						numt = rand.nextInt(3) + 1;
+				}
+				else if (numt == 1 && Runner.xPos <= 0)
+				{
+					isOPassed = true;
+					Runner.xPos = 600;
+					num = rand.nextInt(1 + 1);
+					if (num != 0)
+						numt = rand.nextInt(3) + 1;
+				}
 			}
 
 			if (isOPassed)

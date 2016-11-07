@@ -15,7 +15,7 @@ import runner.player.RotationHandler;
 public class Paint extends JPanel
 {
 	public static boolean isOPassed = true;
-	public static int passed = -1;
+	public static int passed = 0;
 
 	private Random rand = new Random();
 	private int num = rand.nextInt(1 + 1);
@@ -27,15 +27,18 @@ public class Paint extends JPanel
 		super.paintComponent(g);
 		setBackground(Color.BLACK);
 
-		if (Runner.gameOver)
+		if(Runner.gameOver)
 		{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 600, 600);
 			g.setColor(Color.MAGENTA);
 
-			g.drawString("Game Over", this.getWidth() / 2 - 20, this.getHeight() / 2);
-			g.drawString("You cleared " + passed + " obstacles", this.getWidth() / 2 - 55, this.getHeight() / 2 + 15);
-			g.drawString("Press R to play again", this.getWidth() / 2 - 45, this.getHeight() / 2 + 30);
+			g.drawString("Game Over", this.getWidth() / 2 - 20,
+					this.getHeight() / 2);
+			g.drawString("You cleared " + passed + " obstacles",
+					this.getWidth() / 2 - 55, this.getHeight() / 2 + 15);
+			g.drawString("Press R to play again", this.getWidth() / 2 - 45,
+					this.getHeight() / 2 + 30);
 		}
 		else
 		{
@@ -44,18 +47,19 @@ public class Paint extends JPanel
 			g.fillRect(0, 455, 600, 20);
 
 			g.setColor(Color.RED);
-			if (Player.isJump)
+			if(Player.isJump)
 				RotationHandler.drawRotPlayer(g);
 			else
 				g.fillRect(100, Player.getPlayer(), 30, Player.duck());
 
 			g.setColor(Color.YELLOW);
 
-			switch (num)
+			switch(num)
 			{
 			case 0:
 
-				Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num, 435);
+				Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num,
+						435);
 				Triangle.paintT(g, numt);
 				break;
 			case 1:
@@ -64,46 +68,49 @@ public class Paint extends JPanel
 				break;
 			}
 
-			if (Runner.xPos <= 0 && num != 0)
+			if(Runner.xPos <= 0 && num != 0)
 			{
 				isOPassed = true;
+				passed++;
 				Runner.xPos = 600;
 				num = rand.nextInt(1 + 1);
-				if (num != 0)
+				if(num != 0)
 					numt = rand.nextInt(3) + 1;
 			}
 
-			if (num == 0)
+			if(num == 0)
 			{
-				if (numt == 3 && Runner.xPos + 320 <= 0)
+				if(numt == 3 && Runner.xPos + 320 <= 0)
 				{
 					isOPassed = true;
+					passed += 3;
 					Runner.xPos = 600;
 					num = rand.nextInt(1 + 1);
-					if (num != 0)
+					if(num != 0)
 						numt = rand.nextInt(3) + 1;
 				}
-				else if (numt == 2 && Runner.xPos + 100 <= 0)
+				else if(numt == 2 && Runner.xPos + 100 <= 0)
 				{
 					isOPassed = true;
+					passed += 2;
 					Runner.xPos = 600;
 					num = rand.nextInt(1 + 1);
-					if (num != 0)
+					if(num != 0)
 						numt = rand.nextInt(3) + 1;
 				}
-				else if (numt == 1 && Runner.xPos <= 0)
+				else if(numt == 1 && Runner.xPos <= 0)
 				{
 					isOPassed = true;
+					passed += 1;
 					Runner.xPos = 600;
 					num = rand.nextInt(1 + 1);
-					if (num != 0)
+					if(num != 0)
 						numt = rand.nextInt(3) + 1;
 				}
 			}
 
-			if (isOPassed)
+			if(isOPassed)
 			{
-				passed++;
 				isOPassed = false;
 			}
 

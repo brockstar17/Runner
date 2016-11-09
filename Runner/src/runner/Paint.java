@@ -37,8 +37,10 @@ public class Paint extends JPanel
 
 			g.drawString("Game Over", this.getWidth() / 2 - 20,
 					this.getHeight() / 2);
-			g.drawString("You cleared " + passed + " obstacles",
-					this.getWidth() / 2 - 55, this.getHeight() / 2 + 15);
+			g.drawString("You cleared " + passed + " obstacles with " + score
+					* 100 + "% efficiency.",
+					(int) (this.getWidth() / 2 - 110 + passed / 10),
+					this.getHeight() / 2 + 15);
 			g.drawString("Press R to play again", this.getWidth() / 2 - 45,
 					this.getHeight() / 2 + 30);
 		}

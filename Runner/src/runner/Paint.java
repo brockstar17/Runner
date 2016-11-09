@@ -15,7 +15,9 @@ import runner.player.RotationHandler;
 public class Paint extends JPanel
 {
 	public static boolean isOPassed = true;
-	public static int passed = 0;
+	public static float passed = 0;
+	public static float jumps = 0;
+	public static float score;
 
 	private Random rand = new Random();
 	private int num = rand.nextInt(1 + 1);
@@ -49,6 +51,11 @@ public class Paint extends JPanel
 			g.setColor(Color.RED);
 			if(Player.isJump)
 				RotationHandler.drawRotPlayer(g);
+			else if(Runner.numAway > 0)
+			{
+				RotationHandler.drawRetPlayer(g);
+				Runner.numAway -= 3;
+			}
 			else
 				g.fillRect(100, Player.getPlayer(), 30, Player.duck());
 
@@ -116,8 +123,18 @@ public class Paint extends JPanel
 
 			g.setColor(Color.MAGENTA);
 			g.drawString("Obstacles passed: " + passed, 0, 40);
+			g.drawString("Movements made: " + jumps,
+					((18 + (int) (passed / 10)) * 10), 40);
+			if(jumps != 0)
+			{
+				score = passed / jumps;
+
+			}
+
+			g.drawString("Efficiency: " + score * 100 + "%",
+					((35 + (int) (passed / 10) + (int) (jumps / 10))) * 10, 40);
+
 		}
 
 	}
-
 }

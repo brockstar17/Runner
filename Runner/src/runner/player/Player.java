@@ -1,5 +1,6 @@
 package runner.player;
 
+import runner.Paint;
 import runner.Runner;
 
 /*
@@ -20,9 +21,11 @@ public class Player
 	public static boolean isJump = false;
 
 	public static void jump() {
-		if (canJump)
+		if(canJump)
 		{
+			Paint.jumps++;
 			pYPos -= 55;
+			Runner.numAway = 40;
 			canJump = false;
 		}
 
@@ -42,14 +45,14 @@ public class Player
 	// used for decreasing the player block position
 	public static void decPos(int decrement) {
 
-		if ((pYPos + (int) decrement + accl) < stopD)
+		if((pYPos + (int) decrement + accl) < stopD)
 		{
 			pYPos += (int) decrement + accl;
 			yadd = pYPos - 425;
 			accl += accl;
 		}
 
-		else if (pYPos >= stopD)
+		else if(pYPos >= stopD)
 		{
 			pYPos = stopD;
 			yadd = 0;
@@ -67,7 +70,7 @@ public class Player
 
 	// return the y pos of the player block
 	public static int getPlayer() {
-		if (Runner.getDucking())
+		if(Runner.getDucking())
 			return pYPos + 10;
 		else
 			return pYPos;
@@ -84,7 +87,7 @@ public class Player
 	}
 
 	public static int duck() {
-		if (Runner.getDucking())
+		if(Runner.getDucking())
 			return 20;
 		else
 			return 30;

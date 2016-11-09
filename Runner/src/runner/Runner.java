@@ -50,7 +50,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		switch (key)
+		switch(key)
 		{
 		case KeyEvent.VK_A:
 			oVel = 5;
@@ -63,6 +63,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			oVel = 10;
 			break;
 		case KeyEvent.VK_S:
+
 			isDucking = true;
 			break;
 		case KeyEvent.VK_C:
@@ -74,6 +75,8 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			xPos = 600;
 			oVel = 0;
 			Paint.passed = 0;
+			Paint.jumps = 0;
+			Paint.score = 0;
 			gameOver = false;
 			break;
 		}
@@ -86,7 +89,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	public void keyReleased(KeyEvent e) {
 
 		int key = e.getKeyCode();
-		switch (key)
+		switch(key)
 		{
 		case KeyEvent.VK_A:
 			isNewGame = false;
@@ -102,6 +105,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			break;
 		case KeyEvent.VK_S:
 			isDucking = false;
+			Paint.jumps++;
 			break;
 
 		}
@@ -118,21 +122,23 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	public static int angleRot = 180;
 
+	public static int numAway = 0;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (!gameOver)
+		if(!gameOver)
 		{
 			xPos -= oVel;
 
-			if (Player.isJump)
+			if(Player.isJump)
 				Player.decPos(Player.getDVel());
 
-			if (angleRot < 270 && Player.isJump)
+			if(angleRot < 270 && Player.isJump)
 			{
 				angleRot += 10;
 				RotationHandler.rotateCorners();
 			}
-			if (angleRot == 270 && !Player.isJump)
+			if(angleRot == 270 && !Player.isJump)
 			{
 				angleRot = 180;
 			}

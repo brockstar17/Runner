@@ -19,9 +19,10 @@ public class Paint extends JPanel
 	public static float jumps = 0;
 	public static float score;
 
-	private Random rand = new Random();
+	private static Random rand = new Random();
 	private int num = rand.nextInt(1 + 1);
 	private int numt = rand.nextInt(3) + 1;
+	public static int space = rand.nextInt(200 - 160 + 1) + 160;
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -69,7 +70,7 @@ public class Paint extends JPanel
 
 				Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num,
 						435);
-				Triangle.paintT(g, numt);
+				Triangle.paintT(g, numt, space);
 				break;
 			case 1:
 				Runner.gameOver = GameOver.isGameOver(Runner.xPos, num, 415);
@@ -83,6 +84,7 @@ public class Paint extends JPanel
 				passed++;
 				Runner.xPos = 600;
 				num = rand.nextInt(1 + 1);
+				space = rand.nextInt(200 - 160 + 1) + 160;
 				if(num != 0)
 					numt = rand.nextInt(3) + 1;
 			}

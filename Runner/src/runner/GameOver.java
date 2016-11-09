@@ -17,19 +17,23 @@ public class GameOver
 			if(130 >= leadX && !Player.isJump && leadX >= 100) // first
 				return true;
 			// first land
-			if(leadX + 20 >= 100 && leadX + 20 <= 130 && !Player.isJump)
+			if(leadX + 25 >= 100 && leadX + 20 <= 130 && !Player.isJump)
 				return true;
 
-			if(130 >= leadX + 160 && !Player.isJump && leadX + 160 >= 100) // second
+			if(130 >= leadX + Paint.space && !Player.isJump
+					&& leadX + 160 >= 100) // second
 				return true;
 			// second land
-			if(leadX + 180 >= 100 && leadX + 180 <= 130 && !Player.isJump)
+			if(leadX + Paint.space + 25 >= 100 && leadX + 180 <= 130
+					&& !Player.isJump)
 				return true;
 
-			if(130 >= leadX + 320 && !Player.isJump && leadX + 320 >= 100) // third
+			if(130 >= leadX + 160 + Paint.space && !Player.isJump
+					&& leadX + 320 >= 100) // third
 				return true;
 			// third land
-			if(leadX + 340 >= 100 && leadX + 340 <= 130 && !Player.isJump)
+			if(leadX + 160 + Paint.space + 25 >= 100 && leadX + 340 <= 130
+					&& !Player.isJump)
 				return true;
 			break;
 

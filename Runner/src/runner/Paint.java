@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 import runner.obstacles.Overhang;
+import runner.obstacles.Pit;
 import runner.obstacles.Triangle;
 import runner.player.Player;
 import runner.player.RotationHandler;
@@ -20,7 +21,7 @@ public class Paint extends JPanel
 	public static float score;
 
 	private static Random rand = new Random();
-	private int num = rand.nextInt(1 + 1);
+	private int num = rand.nextInt(3 + 1);
 	private int numt = rand.nextInt(3) + 1;
 	public static int space = rand.nextInt(200 - 160 + 1) + 160;
 
@@ -30,7 +31,9 @@ public class Paint extends JPanel
 		super.paintComponent(g);
 		setBackground(Color.BLACK);
 
-		if(Runner.gameOver)
+		// -------------------Handle game over screen --------------------\\
+
+		if(!Runner.gameOver)
 		{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 600, 600);
@@ -38,13 +41,16 @@ public class Paint extends JPanel
 
 			g.drawString("Game Over", this.getWidth() / 2 - 20,
 					this.getHeight() / 2);
-			g.drawString("You cleared " + passed + " obstacles with " + score
-					* 100 + "% efficiency.",
+			g.drawString("You cleared " + (int) passed + " obstacles with "
+					+ score * 100 + "% efficiency.",
 					(int) (this.getWidth() / 2 - 110 + passed / 10),
 					this.getHeight() / 2 + 15);
 			g.drawString("Press R to play again", this.getWidth() / 2 - 45,
 					this.getHeight() / 2 + 30);
 		}
+
+		// ------------------Handle player icon ------------------------------------\\
+
 		else
 		{
 			g.setColor(Color.GRAY);
@@ -64,39 +70,54 @@ public class Paint extends JPanel
 
 			g.setColor(Color.YELLOW);
 
+			// ----------------------Switch that handles obstacle spawning---------------------------------------------------\\
+
 			switch(num)
 			{
 			case 0:
 
-				Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num,
-						435);
+				Runner.gameOver = GameOver.isGameOver(Runner.xPos - 20, num);
 				Triangle.paintT(g, numt, space);
 				break;
+
 			case 1:
-				Runner.gameOver = GameOver.isGameOver(Runner.xPos, num, 415);
+				Runner.gameOver = GameOver.isGameOver(Runner.xPos, num);
 				Overhang.paintO(g);
+				break;
+
+			case 2:
+				Runner.gameOver = GameOver.isGameOver(Runner.xPos, num);
+				Triangle.paintT(g, 1, 0);
+				Overhang.paintOwithT(g);
+				break;
+
+			case 3:
+				Runner.gameOver = GameOver.isGameOver(Runner.xPos, num);
+				Pit.paintH(g);
 				break;
 			}
 
-			if(Runner.xPos <= 0 && num != 0)
+			// ---------------------------Handle when the object has passed the player------------------------------------\\
+
+			if(Runner.xPos <= 0 && num == 1)
 			{
 				isOPassed = true;
 				passed++;
 				Runner.xPos = 600;
-				num = rand.nextInt(1 + 1);
+				num = rand.nextInt(3 + 1);
 				space = rand.nextInt(200 - 160 + 1) + 160;
 				if(num != 0)
 					numt = rand.nextInt(3) + 1;
 			}
 
-			if(num == 0)
+			else if(num == 0)
 			{
 				if(numt == 3 && Runner.xPos + 320 <= 0)
 				{
 					isOPassed = true;
 					passed += 3;
 					Runner.xPos = 600;
-					num = rand.nextInt(1 + 1);
+					num = rand.nextInt(3 + 1);
 					if(num != 0)
 						numt = rand.nextInt(3) + 1;
 				}
@@ -105,7 +126,7 @@ public class Paint extends JPanel
 					isOPassed = true;
 					passed += 2;
 					Runner.xPos = 600;
-					num = rand.nextInt(1 + 1);
+					num = rand.nextInt(3 + 1);
 					if(num != 0)
 						numt = rand.nextInt(3) + 1;
 				}
@@ -114,10 +135,29 @@ public class Paint extends JPanel
 					isOPassed = true;
 					passed += 1;
 					Runner.xPos = 600;
-					num = rand.nextInt(1 + 1);
+					num = rand.nextInt(3 + 1);
 					if(num != 0)
 						numt = rand.nextInt(3) + 1;
 				}
+
+			}
+			else if(num == 2 && Runner.xPos <= -160)
+			{
+				isOPassed = true;
+				passed += 2;
+				Runner.xPos = 600;
+				num = rand.nextInt(3 + 1);
+				if(num != 0)
+					numt = rand.nextInt(3) + 1;
+			}
+			else if(num == 3 && Runner.xPos <= 0)
+			{
+				isOPassed = true;
+				passed++;
+				Runner.xPos = 600;
+				num = rand.nextInt(3 + 1);
+				if(num != 0)
+					numt = rand.nextInt(3) + 1;
 			}
 
 			if(isOPassed)
@@ -126,13 +166,16 @@ public class Paint extends JPanel
 			}
 
 			g.setColor(Color.MAGENTA);
-			g.drawString("Obstacles passed: " + passed, 0, 40);
-			g.drawString("Movements made: " + jumps,
+			g.drawString("Obstacles passed: " + (int) passed, 0, 40);
+			g.drawString("Movements made: " + (int) jumps,
 					((18 + (int) (passed / 10)) * 10), 40);
+
+			// -----------------Calculate score when jumps > zero to avoid opening black hole of destructive math-------------\\
 			if(jumps != 0)
 			{
 				score = passed / jumps;
-
+				score = (int) (score * 100);
+				score = (float) (score / 100);
 			}
 
 			g.drawString("Efficiency: " + score * 100 + "%",
@@ -141,4 +184,5 @@ public class Paint extends JPanel
 		}
 
 	}
+
 }

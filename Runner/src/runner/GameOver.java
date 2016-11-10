@@ -8,7 +8,7 @@ public class GameOver
 	 * Check to see if the game is over
 	 */
 
-	public static boolean isGameOver(int leadX, int obstacle, int topY) {
+	public static boolean isGameOver(int leadX, int obstacle) {
 
 		switch(obstacle)
 		{
@@ -41,6 +41,29 @@ public class GameOver
 			// the overhang
 			if(130 >= leadX && 100 <= leadX + 60 && !Runner.getDucking())
 				return true;
+			break;
+
+		case 2:
+			// triangle followed by overhang
+			// the triangle
+			if(130 >= leadX && !Player.isJump && leadX >= 100) // first
+				return true;
+			// first land
+			if(leadX + 25 >= 100 && leadX + 20 <= 130 && !Player.isJump)
+				return true;
+
+			// the overhang
+			if(130 >= leadX + 180 && 100 <= leadX + 240 && !Runner.getDucking())
+				return true;
+
+			break;
+
+		case 3:
+
+			// the pit
+			if(130 >= leadX && !Player.isJump && leadX >= 80)
+				return true;
+
 			break;
 
 		}

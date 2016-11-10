@@ -33,7 +33,7 @@ public class Paint extends JPanel
 
 		// -------------------Handle game over screen --------------------\\
 
-		if(!Runner.gameOver)
+		if(Runner.gameOver)
 		{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 600, 600);

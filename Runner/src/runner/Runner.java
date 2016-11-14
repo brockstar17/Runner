@@ -78,6 +78,11 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			Paint.jumps = 0;
 			Paint.score = 0;
 			gameOver = false;
+			once = 0;
+			break;
+
+		case KeyEvent.VK_I:
+			HighScores.readScores();
 			break;
 		}
 	}
@@ -124,6 +129,8 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	public static int numAway = 0;
 
+	private int once = 0;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(!gameOver)
@@ -143,6 +150,13 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 				angleRot = 180;
 			}
 
+		}
+
+		if(gameOver && once == 0)
+		{
+			HighScores.addScore("Brock", Paint.passed, Paint.score * 100);
+			HighScores.writeScores();
+			once++;
 		}
 
 		repaint();

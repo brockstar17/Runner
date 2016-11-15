@@ -47,6 +47,9 @@ public class Paint extends JPanel
 					this.getHeight() / 2 + 15);
 			g.drawString("Press R to play again", this.getWidth() / 2 - 45,
 					this.getHeight() / 2 + 30);
+
+			HighScores.highScore(g);
+
 		}
 
 		// ------------------Handle player icon ------------------------------------\\

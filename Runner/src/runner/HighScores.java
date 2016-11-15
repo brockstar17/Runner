@@ -1,28 +1,29 @@
 package runner;
 
+import java.awt.Graphics;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 public class HighScores
 {
-	private static ArrayList<String> names = new ArrayList<String>();
-	private static ArrayList<Float> passed = new ArrayList<Float>();
-	private static ArrayList<Float> effic = new ArrayList<Float>();
+	private static String name = "";
+	private static float passed = Paint.passed;
+	private static float effic = Paint.score;
 
 	public static void writeScores() {
 		try
 		{
 			// open file to write to
-			FileOutputStream saveFile = new FileOutputStream("Scores.sav");
+			FileOutputStream saveFile = new FileOutputStream(
+					"resources/Scores.sav");
 
 			// object output stream to put objects into save file
 			ObjectOutputStream save = new ObjectOutputStream(saveFile);
 
 			// add to save file
-			save.writeObject(names);
+			save.writeObject(name);
 			save.writeObject(passed);
 			save.writeObject(effic);
 
@@ -33,46 +34,49 @@ public class HighScores
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void readScores() {
 		try
 		{
+
 			// open the file to read from
-			FileInputStream saveFile = new FileInputStream("Scores.sav");
+			FileInputStream saveFile = new FileInputStream(
+					"resources/Scores.sav");
 
 			// get objects from the save
 			ObjectInputStream save = new ObjectInputStream(saveFile);
 
-			names = (ArrayList<String>) save.readObject();
-			passed = (ArrayList) save.readObject();
-			effic = (ArrayList) save.readObject();
+			name = (String) save.readObject();
+			passed = (float) save.readObject();
+			effic = (float) save.readObject();
 
 			save.close();
+
 		} catch (Exception exc)
 		{
 			exc.printStackTrace(); // If there was an error, print the info.
+
 		}
 
-		System.out.println("Names: " + names);
+		System.out.println("Name: " + name);
 		System.out.println("Passed: " + passed);
 		System.out.println("Efficiency: " + effic);
 
 	}
 
-	public static void addScore(String name, float pass, float e) {
-		if(names.size() <= 5)
+	public static void addScore(String n, float pass, float e) {
+		if(pass > passed)
 		{
-			names.add(name);
+			name = n;
+			passed = pass;
+			effic = e;
 		}
 
-		if(passed.size() <= 5)
-		{
-			passed.add(pass);
-		}
-
-		if(effic.size() <= 5)
-		{
-			effic.add(e);
-		}
 	}
+
+	public static void highScore(Graphics g) {
+		g.drawString("High Score: " + name, 10, 20);
+		g.drawString(passed + " obstacles", 10, 40);
+		g.drawString("Efficiency: " + effic + "%", 10, 60);
+	}
+
 }

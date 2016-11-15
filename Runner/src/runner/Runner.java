@@ -35,6 +35,8 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	public static void main(String[] args) {
 
+		HighScores.readScores();
+
 		Runner frame = new Runner();
 
 		frame.setSize(600, 500);

@@ -17,6 +17,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 {
 	public static int oVel = 0;
 	public static int xPos = 600;
+	public static int pPos = 600;
 
 	public static boolean isNewGame = true;
 	public static boolean gameOver = false;
@@ -136,6 +137,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		if(!gameOver)
 		{
 			xPos -= oVel;
+			pPos -= oVel;
 
 			if(Player.isJump)
 				Player.decPos(Player.getDVel());

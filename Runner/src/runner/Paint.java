@@ -35,7 +35,9 @@ public class Paint extends JPanel
 
 		super.paintComponent(g);
 
-		g.drawImage(hills, 0, 0, null);
+		/*
+		 * g.drawImage(hills, Runner.xPos - 600, 0, Runner.xPos, 560, 0, 0, 600, 560, null);
+		 */
 
 		// -------------------Handle game over screen --------------------\\
 
@@ -174,8 +176,8 @@ public class Paint extends JPanel
 			}
 
 			g.setColor(Color.WHITE);
-			g.drawString("Obstacles passed: " + (int) passed, 0, 40);
-			g.drawString("Movements made: " + (int) jumps, 200, 40);
+			g.drawString("Obstacles passed: " + (int) passed, 0, 10);
+			g.drawString("Movements made: " + (int) jumps, 200, 10);
 
 			// -----------------Calculate score when jumps > zero to avoid opening black hole of destructive math-------------\\
 			if(jumps != 0)
@@ -185,7 +187,7 @@ public class Paint extends JPanel
 				score = (float) (score / 100);
 			}
 
-			g.drawString("Efficiency: " + score * 100 + "%", 400, 40);
+			g.drawString("Efficiency: " + score * 100 + "%", 400, 10);
 
 		}
 

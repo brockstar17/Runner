@@ -43,7 +43,7 @@ public class Paint extends JPanel
 					this.getHeight() / 2);
 			g.drawString("You cleared " + (int) passed + " obstacles with "
 					+ score * 100 + "% efficiency.",
-					(int) (this.getWidth() / 2 - 110 + passed / 10),
+					(int) (this.getWidth() / 2 - 110),
 					this.getHeight() / 2 + 15);
 			g.drawString("Press R to play again", this.getWidth() / 2 - 45,
 					this.getHeight() / 2 + 30);
@@ -170,8 +170,7 @@ public class Paint extends JPanel
 
 			g.setColor(Color.MAGENTA);
 			g.drawString("Obstacles passed: " + (int) passed, 0, 40);
-			g.drawString("Movements made: " + (int) jumps,
-					((18 + (int) (passed / 10)) * 10), 40);
+			g.drawString("Movements made: " + (int) jumps, 200, 40);
 
 			// -----------------Calculate score when jumps > zero to avoid opening black hole of destructive math-------------\\
 			if(jumps != 0)
@@ -181,8 +180,7 @@ public class Paint extends JPanel
 				score = (float) (score / 100);
 			}
 
-			g.drawString("Efficiency: " + score * 100 + "%",
-					((35 + (int) (passed / 10) + (int) (jumps / 10))) * 10, 40);
+			g.drawString("Efficiency: " + score * 100 + "%", 400, 40);
 
 		}
 

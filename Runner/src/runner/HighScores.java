@@ -6,10 +6,13 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class HighScores
 {
 	private static String name = "";
-	private static float passed = Paint.passed;
+	public static float passed = Paint.passed;
 	private static float effic = Paint.score;
 
 	public static void writeScores() {
@@ -30,7 +33,7 @@ public class HighScores
 			save.close();
 		} catch (Exception exc)
 		{
-			exc.printStackTrace(); // If there was an error, print the info.
+			System.out.println("Error, file not found");
 		}
 	}
 
@@ -53,13 +56,9 @@ public class HighScores
 
 		} catch (Exception exc)
 		{
-			exc.printStackTrace(); // If there was an error, print the info.
+			System.out.println("Error, file not found");
 
 		}
-
-		System.out.println("Name: " + name);
-		System.out.println("Passed: " + passed);
-		System.out.println("Efficiency: " + effic);
 
 	}
 
@@ -77,6 +76,15 @@ public class HighScores
 		g.drawString("High Score: " + name, 10, 20);
 		g.drawString(passed + " obstacles", 10, 40);
 		g.drawString("Efficiency: " + effic + "%", 10, 60);
+	}
+
+	public static String getName() {
+		final JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		String name = JOptionPane
+				.showInputDialog("New High Score! Enter your name");
+		return name;
 	}
 
 }

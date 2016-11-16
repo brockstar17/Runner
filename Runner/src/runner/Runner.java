@@ -55,14 +55,12 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		switch(key)
 		{
 		case KeyEvent.VK_A:
-			oVel = 5;
 			break;
 		case KeyEvent.VK_W:
 			Player.jump();
 			Player.isJump = true;
 			break;
 		case KeyEvent.VK_D:
-			oVel = 10;
 			break;
 		case KeyEvent.VK_S:
 
@@ -156,7 +154,11 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 		if(gameOver && once == 0)
 		{
-			HighScores.addScore("Brock", Paint.passed, Paint.score * 100);
+			if(Paint.passed > HighScores.passed)
+			{
+				HighScores.addScore(HighScores.getName(), Paint.passed,
+						Paint.score * 100);
+			}
 			HighScores.writeScores();
 			once++;
 		}

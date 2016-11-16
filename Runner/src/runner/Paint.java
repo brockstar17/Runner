@@ -2,6 +2,8 @@ package runner;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -25,11 +27,15 @@ public class Paint extends JPanel
 	private int numt = rand.nextInt(3) + 1;
 	public static int space = rand.nextInt(200 - 160 + 1) + 160;
 
+	private Image hills = Toolkit.getDefaultToolkit().createImage(
+			"resources/RollingHills.png");
+
 	@Override
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		setBackground(Color.BLACK);
+
+		g.drawImage(hills, 0, 0, null);
 
 		// -------------------Handle game over screen --------------------\\
 
@@ -37,7 +43,7 @@ public class Paint extends JPanel
 		{
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, 600, 600);
-			g.setColor(Color.MAGENTA);
+			g.setColor(Color.ORANGE);
 
 			g.drawString("Game Over", this.getWidth() / 2 - 20,
 					this.getHeight() / 2);
@@ -56,8 +62,7 @@ public class Paint extends JPanel
 
 		else
 		{
-			g.setColor(Color.GRAY);
-			g.fillRect(0, 0, 600, 20);
+			g.setColor(Color.GREEN);
 			g.fillRect(0, 455, 600, 20);
 
 			g.setColor(Color.RED);
@@ -71,7 +76,7 @@ public class Paint extends JPanel
 			else
 				g.fillRect(100, Player.getPlayer(), 30, Player.duck());
 
-			g.setColor(Color.YELLOW);
+			g.setColor(Color.BLACK);
 
 			// ----------------------Switch that handles obstacle spawning---------------------------------------------------\\
 
@@ -168,7 +173,7 @@ public class Paint extends JPanel
 				isOPassed = false;
 			}
 
-			g.setColor(Color.MAGENTA);
+			g.setColor(Color.WHITE);
 			g.drawString("Obstacles passed: " + (int) passed, 0, 40);
 			g.drawString("Movements made: " + (int) jumps, 200, 40);
 

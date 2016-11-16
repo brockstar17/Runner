@@ -53,13 +53,12 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		switch(key)
+		switch (key)
 		{
 		case KeyEvent.VK_A:
 			break;
 		case KeyEvent.VK_W:
-			Player.jump();
-			Player.isJump = true;
+
 			break;
 		case KeyEvent.VK_D:
 			break;
@@ -95,14 +94,15 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	public void keyReleased(KeyEvent e) {
 
 		int key = e.getKeyCode();
-		switch(key)
+		switch (key)
 		{
 		case KeyEvent.VK_A:
 			isNewGame = false;
 			oVel = 8;
 			break;
 		case KeyEvent.VK_W:
-
+			Player.jump();
+			Player.isJump = true;
 			Player.fall(1);
 			break;
 		case KeyEvent.VK_D:
@@ -134,32 +134,31 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(!gameOver)
+		if (!gameOver)
 		{
 			xPos -= oVel;
 			pPos -= oVel;
 
-			if(Player.isJump)
+			if (Player.isJump)
 				Player.decPos(Player.getDVel());
 
-			if(angleRot < 270 && Player.isJump)
+			if (angleRot < 270 && Player.isJump)
 			{
 				angleRot += 10;
 				RotationHandler.rotateCorners();
 			}
-			if(angleRot == 270 && !Player.isJump)
+			if (angleRot == 270 && !Player.isJump)
 			{
 				angleRot = 180;
 			}
 
 		}
 
-		if(gameOver && once == 0)
+		if (gameOver && once == 0)
 		{
-			if(Paint.passed > HighScores.passed)
+			if (Paint.passed > HighScores.passed)
 			{
-				HighScores.addScore(HighScores.getName(), Paint.passed,
-						Paint.score * 100);
+				HighScores.addScore(HighScores.getName(), Paint.passed, Paint.score * 100);
 			}
 			HighScores.writeScores();
 			once++;

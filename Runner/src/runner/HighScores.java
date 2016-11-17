@@ -19,7 +19,7 @@ public class HighScores
 		try
 		{
 			// open file to write to
-			FileOutputStream saveFile = new FileOutputStream("src/resources/Scores.sav");
+			FileOutputStream saveFile = new FileOutputStream("resources/Scores.sav");
 
 			// object output stream to put objects into save file
 			ObjectOutputStream save = new ObjectOutputStream(saveFile);
@@ -41,7 +41,7 @@ public class HighScores
 		{
 
 			// open the file to read from
-			FileInputStream saveFile = new FileInputStream("src/resources/Scores.sav");
+			FileInputStream saveFile = new FileInputStream("resources/Scores.sav");
 
 			// get objects from the save
 			ObjectInputStream save = new ObjectInputStream(saveFile);

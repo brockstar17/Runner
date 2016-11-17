@@ -27,8 +27,8 @@ public class Paint extends JPanel
 	private int numt = rand.nextInt(3) + 1;
 	public static int space = rand.nextInt(200 - 160 + 1) + 160;
 
-	private Image hills = Toolkit.getDefaultToolkit().createImage("resources/RollingHills.png");
-	private Image hill2 = Toolkit.getDefaultToolkit().createImage("resources/Hills2.png");
+	private Image hills = Toolkit.getDefaultToolkit().createImage("src/resources/RollingHills.png");
+	private Image hill2 = Toolkit.getDefaultToolkit().createImage("src/resources/Hills2.png");
 
 	@Override
 	protected void paintComponent(Graphics g) {

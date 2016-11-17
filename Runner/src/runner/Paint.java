@@ -28,18 +28,37 @@ public class Paint extends JPanel
 	public static int space = rand.nextInt(200 - 160 + 1) + 160;
 
 	private Image hills = Toolkit.getDefaultToolkit().createImage("resources/RollingHills.png");
+	private Image hill2 = Toolkit.getDefaultToolkit().createImage("resources/Hills2.png");
 
 	@Override
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-
 		g.drawImage(hills, 0, 0, null);
+		// g.drawImage(hills, 0, 0, null);
 
-		/*
-		 * g.drawImage(hills, Runner.xPos - 600, 0, Runner.xPos, 560, 0, 0, 600,
-		 * 560, null);
-		 */
+		if (Runner.shouldUPPos)
+		{
+			g.drawImage(hills, Runner.pPos - 600, 0, Runner.pPos, 560, 0, 0, 600, 560, null);
+			g.drawImage(hill2, Runner.pPos, 0, Runner.pPos + 600, 560, 0, 0, 600, 560, null);
+			g.drawImage(hills, Runner.pPos + 600, 0, Runner.pPos + 1200, 560, 0, 0, 600, 560, null);
+			if (Runner.pPos == -600)
+			{
+				Runner.altPpos = -1200;
+				Runner.shouldUPPos = false;
+			}
+		}
+		else
+		{
+			g.drawImage(hills, Runner.altPpos - 600, 0, Runner.altPpos, 560, 0, 0, 600, 560, null);
+			g.drawImage(hill2, Runner.altPpos, 0, Runner.altPpos + 600, 560, 0, 0, 600, 560, null);
+			g.drawImage(hills, Runner.altPpos + 600, 0, Runner.altPpos + 1200, 560, 0, 0, 600, 560, null);
+			if (Runner.altPpos + 600 <= 620)
+			{
+				Runner.pPos = 600;
+				Runner.shouldUPPos = true;
+			}
+		}
 
 		// -------------------Handle game over screen --------------------\\
 

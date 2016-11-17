@@ -58,7 +58,8 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		case KeyEvent.VK_A:
 			break;
 		case KeyEvent.VK_W:
-
+			Player.jump();
+			Player.isJump = true;
 			break;
 		case KeyEvent.VK_D:
 			break;
@@ -79,6 +80,8 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			Paint.score = 0;
 			gameOver = false;
 			once = 0;
+			altPpos = -1200;
+			pPos = 600;
 			break;
 
 		case KeyEvent.VK_I:
@@ -101,8 +104,7 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			oVel = 8;
 			break;
 		case KeyEvent.VK_W:
-			Player.jump();
-			Player.isJump = true;
+
 			Player.fall(1);
 			break;
 		case KeyEvent.VK_D:
@@ -132,12 +134,24 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 
 	private int once = 0;
 
+	public static boolean shouldUPPos = true;
+	public static int altPpos = -1200;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!gameOver)
 		{
 			xPos -= oVel;
-			pPos -= oVel;
+			if (shouldUPPos)
+			{
+
+				pPos -= oVel;
+			}
+			else
+			{
+
+				altPpos -= oVel;
+			}
 
 			if (Player.isJump)
 				Player.decPos(Player.getDVel());

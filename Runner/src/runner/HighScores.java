@@ -19,8 +19,7 @@ public class HighScores
 		try
 		{
 			// open file to write to
-			FileOutputStream saveFile = new FileOutputStream(
-					"resources/Scores.sav");
+			FileOutputStream saveFile = new FileOutputStream("resources/Scores.sav");
 
 			// object output stream to put objects into save file
 			ObjectOutputStream save = new ObjectOutputStream(saveFile);
@@ -42,8 +41,7 @@ public class HighScores
 		{
 
 			// open the file to read from
-			FileInputStream saveFile = new FileInputStream(
-					"resources/Scores.sav");
+			FileInputStream saveFile = new FileInputStream("resources/Scores.sav");
 
 			// get objects from the save
 			ObjectInputStream save = new ObjectInputStream(saveFile);
@@ -63,7 +61,13 @@ public class HighScores
 	}
 
 	public static void addScore(String n, float pass, float e) {
-		if(pass > passed)
+		if (pass > passed)
+		{
+			name = n;
+			passed = pass;
+			effic = e;
+		}
+		else if (pass == passed && e > effic)
 		{
 			name = n;
 			passed = pass;
@@ -82,8 +86,7 @@ public class HighScores
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		String name = JOptionPane
-				.showInputDialog("New High Score! Enter your name");
+		String name = JOptionPane.showInputDialog("New High Score! Enter your name");
 		return name;
 	}
 

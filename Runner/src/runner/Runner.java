@@ -88,6 +88,13 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 		case KeyEvent.VK_I:
 			HighScores.readScores();
 			break;
+
+		case KeyEvent.VK_ESCAPE:
+			if (oVel != 0)
+				oVel = 0;
+			else
+				oVel = 8;
+			break;
 		}
 	}
 
@@ -211,11 +218,11 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 				}
 			}
 
-			if (wTime < 60 && wait)
+			if (wTime < 40 && wait)
 			{
 				wTime += 1;
 			}
-			else if (wTime == 60 && wait)
+			else if (wTime == 40 && wait)
 			{
 				wait = false;
 				wTime = 1;

@@ -73,6 +73,12 @@ public class HighScores
 			passed = pass;
 			effic = e;
 		}
+		else
+		{
+			name = n;
+			passed = pass;
+			effic = e;
+		}
 
 	}
 

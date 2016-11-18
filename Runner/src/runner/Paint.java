@@ -50,11 +50,13 @@ public class Paint extends JPanel
 			{
 				textNum++;
 				upText = false;
+
 			}
 			else if (upText)
 			{
 				textNum = 0;
 				upText = false;
+
 			}
 
 		}
@@ -62,6 +64,7 @@ public class Paint extends JPanel
 		if (passed % 16 == 0 && passed > 0)
 		{
 			upText = true;
+
 		}
 
 		if (Runner.shouldUPPos)

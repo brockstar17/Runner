@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import runner.graphics.Paint;
+
 public class HighScores
 {
 	private static String name = "";

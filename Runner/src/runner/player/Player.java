@@ -1,7 +1,7 @@
 package runner.player;
 
-import runner.Paint;
 import runner.Runner;
+import runner.graphics.Paint;
 
 /*
  * These methods will track the changes to the player's

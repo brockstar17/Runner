@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import runner.graphics.Paint;
 import runner.player.Player;
 import runner.player.RotationHandler;
 
@@ -137,6 +138,13 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 	public static boolean shouldUPPos = true;
 	public static int altPpos = -1200;
 
+	private int count = 1;
+	public static int time = 1;
+	public static boolean day = true;
+
+	public static boolean wait = true;
+	private int wTime = 1;
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!gameOver)
@@ -176,6 +184,46 @@ public class Runner extends JFrame implements ActionListener, KeyListener
 			}
 			HighScores.writeScores();
 			once++;
+		}
+
+		if (count < (1000 / 30))
+		{
+			count++;
+		}
+		else if (count == (1000 / 30))
+		{
+			if (day && !wait)
+			{
+				time += 1;
+				if (time == 30)
+				{
+					wait = true;
+					day = false;
+				}
+			}
+			else if (!wait)
+			{
+				time -= 1;
+				if (time == 0)
+				{
+					wait = true;
+					day = true;
+				}
+			}
+
+			if (wTime < 60 && wait)
+			{
+				wTime += 1;
+			}
+			else if (wTime == 60 && wait)
+			{
+				wait = false;
+				wTime = 1;
+			}
+
+			// System.out.println(time);
+
+			count = 1;
 		}
 
 		repaint();

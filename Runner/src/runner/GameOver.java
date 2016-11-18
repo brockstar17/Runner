@@ -1,5 +1,6 @@
 package runner;
 
+import runner.graphics.Paint;
 import runner.player.Player;
 
 public class GameOver

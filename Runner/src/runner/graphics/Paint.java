@@ -1,4 +1,4 @@
-package runner;
+package runner.graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,6 +8,9 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+import runner.GameOver;
+import runner.HighScores;
+import runner.Runner;
 import runner.obstacles.Overhang;
 import runner.obstacles.Pit;
 import runner.obstacles.Triangle;
@@ -27,51 +30,35 @@ public class Paint extends JPanel
 	private int numt = rand.nextInt(3) + 1;
 	public static int space = rand.nextInt(200 - 160 + 1) + 160;
 
-	private int textNum = 0;
-
 	private Image hills = Toolkit.getDefaultToolkit().createImage("resources/RollingHills.png");
 	private Image hill2 = Toolkit.getDefaultToolkit().createImage("resources/Hills2.png");
 	private Image night = Toolkit.getDefaultToolkit().createImage("resources/night.png");
 	private Image night2 = Toolkit.getDefaultToolkit().createImage("resources/night2.png");
 
-	private boolean upText = false;
-
 	@Override
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		g.drawImage(getBackImage(textNum)[0], 0, 0, null);
-		// g.drawImage(hills, 0, 0, null);
-
-		if (passed % 15 == 0 && passed > 0)
+		if (Runner.day && Runner.wait)
 		{
-
-			if (textNum < 1 && upText)
-			{
-				textNum++;
-				upText = false;
-
-			}
-			else if (upText)
-			{
-				textNum = 0;
-				upText = false;
-
-			}
-
+			setBackground(BackColor.getBackColor(Runner.time, "day"));
+		}
+		else if (!Runner.day && Runner.wait)
+		{
+			setBackground(BackColor.getBackColor(Runner.time, "night"));
+		}
+		else
+		{
+			setBackground(BackColor.getBackColor(Runner.time, "tran"));
 		}
 
-		if (passed % 16 == 0 && passed > 0)
-		{
-			upText = true;
-
-		}
+		// g.drawImage(getBackImage()[0], 0, 0, null);
 
 		if (Runner.shouldUPPos)
 		{
-			g.drawImage(getBackImage(textNum)[0], Runner.pPos - 600, 0, Runner.pPos, 560, 0, 0, 600, 560, null);
-			g.drawImage(getBackImage(textNum)[1], Runner.pPos, 0, Runner.pPos + 600, 560, 0, 0, 600, 560, null);
-			g.drawImage(getBackImage(textNum)[0], Runner.pPos + 600, 0, Runner.pPos + 1200, 560, 0, 0, 600, 560, null);
+			g.drawImage(getBackImage()[0], Runner.pPos - 600, 0, Runner.pPos, 560, 0, 0, 600, 560, null);
+			g.drawImage(getBackImage()[1], Runner.pPos, 0, Runner.pPos + 600, 560, 0, 0, 600, 560, null);
+			g.drawImage(getBackImage()[0], Runner.pPos + 600, 0, Runner.pPos + 1200, 560, 0, 0, 600, 560, null);
 			if (Runner.pPos == -600)
 			{
 				Runner.altPpos = -1200;
@@ -80,15 +67,19 @@ public class Paint extends JPanel
 		}
 		else
 		{
-			g.drawImage(hills, Runner.altPpos - 600, 0, Runner.altPpos, 560, 0, 0, 600, 560, null);
-			g.drawImage(hill2, Runner.altPpos, 0, Runner.altPpos + 600, 560, 0, 0, 600, 560, null);
-			g.drawImage(hills, Runner.altPpos + 600, 0, Runner.altPpos + 1200, 560, 0, 0, 600, 560, null);
+			g.drawImage(getBackImage()[0], Runner.altPpos - 600, 0, Runner.altPpos, 560, 0, 0, 600, 560, null);
+			g.drawImage(getBackImage()[1], Runner.altPpos, 0, Runner.altPpos + 600, 560, 0, 0, 600, 560, null);
+			g.drawImage(getBackImage()[0], Runner.altPpos + 600, 0, Runner.altPpos + 1200, 560, 0, 0, 600, 560, null);
 			if (Runner.altPpos + 600 <= 620)
 			{
 				Runner.pPos = 600;
 				Runner.shouldUPPos = true;
 			}
 		}
+
+		g.drawImage(getBackImage()[0], Runner.pPos - 600, 0, Runner.pPos, 560, 0, 0, 600, 560, null);
+		g.drawImage(getBackImage()[1], Runner.pPos, 0, Runner.pPos + 600, 560, 0, 0, 600, 560, null);
+		g.drawImage(getBackImage()[0], Runner.pPos + 600, 0, Runner.pPos + 1200, 560, 0, 0, 600, 560, null);
 
 		// -------------------Handle game over screen --------------------\\
 
@@ -244,13 +235,13 @@ public class Paint extends JPanel
 
 	}
 
-	private Image[] getBackImage(int num) {
-		switch (num)
+	private Image[] getBackImage() {
+		if (!Runner.day)
 		{
-		case 1:
 			return new Image[] { night, night2 };
-
-		default:
+		}
+		else
+		{
 			return new Image[] { hills, hill2 };
 		}
 	}
